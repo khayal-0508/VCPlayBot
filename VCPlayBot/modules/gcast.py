@@ -21,9 +21,9 @@ async def broadcast(_, message: Message):
     if message.from_user.id not in SUDO_USERS:
         return
     else:
-        wtf = await message.reply("`Starting a broadcast...`")
+        wtf = await message.reply("`Qlobal mesaja başlandı...`")
         if not message.reply_to_message:
-            await wtf.edit("Please Reply to a Message to broadcast!")
+            await wtf.edit("Qlobal mesaj üçün bir mesaja yanıt verin!")
             return
         lmao = message.reply_to_message.text
         async for dialog in USER.iter_dialogs():
