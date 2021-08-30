@@ -17,31 +17,31 @@ async def addchannel(client, message):
         invitelink = await client.export_chat_invite_link(chid)
     except:
         await message.reply_text(
-            "<b>Add me as admin of yor group first</b>",
+            "<b>İlk olaraq məni qrupda admin edin</b>",
         )
         return
 
     try:
         user = await USER.get_me()
     except:
-        user.first_name = "VCPlayBot"
+        user.first_name = "Khan Music Bot"
 
     try:
         await USER.join_chat(invitelink)
-        await USER.send_message(message.chat.id, "I joined here as you requested")
+        await USER.send_message(message.chat.id, "Sizin istəyinizlə qrupa qoşuldum")
     except UserAlreadyParticipant:
         await message.reply_text(
-            "<b>helper already in your chat</b>",
+            "<b>Assistant qrupa qoşuldu</b>",
         )
     except Exception as e:
         print(e)
         await message.reply_text(
-            f"<b>🛑 Flood Wait Error 🛑 \n User {user.first_name} couldn't join your group due to heavy join requests for userbot! Make sure user is not banned in group."
-            "\n\nOr manually add @VCPlayAssistant to your Group and try again</b>",
+            f"<b>🛑 Flood Wait Xətası 🛑 \n Əziz {user.first_name} Assistant bizdən asılı olmayan səbəblərə görə qrupa qoşula bilmədi! Assistantın qrupdan çıxarılmadığına və ya ban edilmədiyinə əmin olun."
+            "\n\nyenidən cəhd edin, alınmazsa kömək üçün @tag1y3v müraciət edin</b>",
         )
         return
     await message.reply_text(
-        "<b>helper userbot joined your chat</b>",
+        "<b>Assistant qrupa qoşuldu</b>",
     )
 
 
@@ -62,15 +62,15 @@ async def bye(client, message):
     if message.from_user.id in SUDO_USERS:
         left=0
         failed=0
-        lol = await message.reply("Assistant Leaving all chats")
+        lol = await message.reply("Assistant bütün qruplardan çıxdı")
         async for dialog in USER.iter_dialogs():
             try:
                 await USER.leave_chat(dialog.chat.id)
                 left = left+1
-                await lol.edit(f"Assistant leaving... Left: {left} chats. Failed: {failed} chats.")
+                await lol.edit(f"Assistant çıxarılır... Left: {left} chats. Failed: {failed} chats.")
             except:
                 failed=failed+1
-                await lol.edit(f"Assistant leaving... Left: {left} chats. Failed: {failed} chats.")
+                await lol.edit(f"Assistant çıxarılır... Left: {left} chats. Failed: {failed} chats.")
             await asyncio.sleep(0.7)
         await client.send_message(message.chat.id, f"Left {left} chats. Failed {failed} chats.")
     
@@ -98,7 +98,7 @@ async def addcchannel(client, message):
     try:
         user = await USER.get_me()
     except:
-        user.first_name = "VCPlayBot"
+        user.first_name = "Khan Music Bot"
 
     try:
         await USER.join_chat(invitelink)
