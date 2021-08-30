@@ -374,7 +374,7 @@ async def m_cb(b, cb):
         if (chet_id not in callsmusic.active_chats) or (
             callsmusic.active_chats[chet_id] == "playing"
         ):
-            await cb.answer("Musiqi davam etdirilir" və ya heç nə oxunmur, show_alert=True)
+            await cb.answer("Musiqi davam etdirilir və ya heç nə oxunmur", show_alert=True)
         else:
             callsmusic.resume(chet_id)
             await cb.answer("Musiqi davam etdirildi!")
