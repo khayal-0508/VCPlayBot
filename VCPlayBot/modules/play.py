@@ -116,10 +116,10 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
     font = ImageFont.truetype("etc/font.otf", 32)
     draw.text((205, 550), f"Başlıq: {title}", (51, 215, 255), font=font)
     draw.text((205, 590), f"Uzunluq: {duration}", (255, 255, 255), font=font)
-    draw.text((205, 630), f"Baxlş: {views}", (255, 255, 255), font=font)
+    draw.text((205, 630), f"Baxış sayı: {views}", (255, 255, 255), font=font)
     draw.text(
         (205, 670),
-        f"Added By: {requested_by}",
+        f"Paylaşan: {requested_by}",
         (255, 255, 255),
         font=font,
     )
@@ -1054,13 +1054,13 @@ async def lol_cb(b, cb):
     try:
         x,query,useer_id = typed_.split("|")      
     except:
-        await cb.message.edit("Song Not Found")
+        await cb.message.edit("Mahnı tapılmadı")
         return
     useer_id = int(useer_id)
     if cb.from_user.id != useer_id:
-        await cb.answer("You ain't the person who requested to play the song!", show_alert=True)
+        await cb.answer("Mahnını qoşan sən deyilsən!", show_alert=True)
         return
-    await cb.message.edit("Hang On... Player Starting")
+    await cb.message.edit("Musiqi səslənməyə başlayır")
     x=int(x)
     try:
         useer_name = cb.message.reply_to_message.from_user.first_name
@@ -1081,7 +1081,7 @@ async def lol_cb(b, cb):
             dur += (int(dur_arr[i]) * secmul)
             secmul *= 60
         if (dur / 60) > DURATION_LIMIT:
-             await cb.message.edit(f"Music longer than {DURATION_LIMIT}min are not allowed to play")
+             await cb.message.edit(f" {DURATION_LIMIT} dəqiqədən böyük musiqilərin səsləndirilməsinə icazə verilmir")
              return
     except:
         pass
@@ -1102,9 +1102,9 @@ async def lol_cb(b, cb):
             ],
             [
                 InlineKeyboardButton(text="🎬 YouTube", url=f"{url}"),
-                InlineKeyboardButton(text="Download 📥", url=f"{dlurl}"),
+                InlineKeyboardButton(text="Yüklə 📥", url=f"{dlurl}"),
             ],
-            [InlineKeyboardButton(text="❌ Close", callback_data="cls")],
+            [InlineKeyboardButton(text="❌ Bağla", callback_data="cls")],
         ]
     )
     requested_by = useer_name
@@ -1124,7 +1124,7 @@ async def lol_cb(b, cb):
         await cb.message.delete()
         await b.send_photo(chat_id,
             photo="final.png",
-            caption=f"#⃣  Song requested by {r_by.mention} <b>queued</b> at position {position}!",
+            caption=f"#⃣   {r_by.mention} tərəfindən sifariş edilmiş musiqi <b>növbədədir</b> Sıra nömrəsi {position}!",
             reply_markup=keyboard,
         )
         os.remove("final.png")
@@ -1146,6 +1146,6 @@ async def lol_cb(b, cb):
         await b.send_photo(chat_id,
             photo="final.png",
             reply_markup=keyboard,
-            caption=f"▶️ <b>Oxunur</b> İstədi {r_by.mention} Youtube Music 😎",
+            caption=f"▶️ <b>Oxunur</b> İstədi {r_by.mention} ",
         )
         os.remove("final.png")
