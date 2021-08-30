@@ -35,7 +35,7 @@ def song(client, message):
     for i in message.command[1:]:
         query += " " + str(i)
     print(query)
-    m = message.reply("🔎 Finding the song...")
+    m = message.reply("🔎 Axtarılır...")
     ydl_opts = {"format": "bestaudio/best"}
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
@@ -52,16 +52,16 @@ def song(client, message):
         results[0]["views"]
 
     except Exception as e:
-        m.edit("❌ Found Nothing.\n\nTry another keywork or maybe spell it properly.")
+        m.edit("❌ Heç nə tapılmadı.\n\nYenidən cəhd edin və ya başqa mahnı axtarın.")
         print(str(e))
         return
-    m.edit("Downloading the song ")
+    m.edit("Mahnı yüklənir ")
     try:
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=False)
             audio_file = ydl.prepare_filename(info_dict)
             ydl.process_info(info_dict)
-        rep = "**🎵 Uploaded by VCPlayBot**"
+        rep = "**🎵 Yükləndi @KhanVlog**"
         secmul, dur, dur_arr = 1, 0, duration.split(":")
         for i in range(len(dur_arr) - 1, -1, -1):
             dur += int(dur_arr[i]) * secmul
@@ -76,7 +76,7 @@ def song(client, message):
         )
         m.delete()
     except Exception as e:
-        m.edit("❌ Error")
+        m.edit("❌ Xəta")
         print(e)
 
     try:
@@ -257,13 +257,13 @@ async def jssong(_, message):
         return
     if is_downloading:
         await message.reply_text(
-            "Another download is in progress, try again after sometime."
+            "Başqa bir yüklənmə əməliyyatı aparılır, az sonra yenidən cəhd edin."
         )
         return
     is_downloading = True
     text = message.text.split(None, 1)[1]
     query = text.replace(" ", "%20")
-    m = await message.reply_text("Searching...")
+    m = await message.reply_text("Axtarılır...")
     try:
         songs = await arq.saavn(query)
         if not songs.ok:
@@ -334,14 +334,14 @@ async def ytmusic(client, message: Message):
 
             if duration > DURATION_LIMIT:
                 await pablo.edit(
-                    f"❌ Videos longer than {DURATION_LIMIT} minute(s) aren't allowed, the provided video is {duration} minute(s)"
+                    f"❌ {DURATION_LIMIT} dəqiqədən böyük fayllara icazə verilmir"
                 )
                 is_downloading = False
                 return
             ytdl_data = ytdl.extract_info(url, download=True)
 
     except Exception:
-        # await pablo.edit(event, f"**Failed To Download** \n**Error :** `{str(e)}`")
+        # await pablo.edit(event, f"**Yükləmədə xəta oldu** \n**Xəta :** `{str(e)}`")
         is_downloading = False
         return
 
